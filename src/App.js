@@ -1,23 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import app from './firebase.config';
+
+const googleProvider = new GoogleAuthProvider();
+const gitHubProvider = new GoogleAuthProvider();
+
+const auth = getAuth(app);
+
 
 function App() {
+
+  const GoogleLogIn = () => {
+    signInWithPopup(auth, googleProvider)
+      .then(data => {
+        const user = data.user;
+        console.log(user);
+      })
+      .catch(err => console.error(err));
+  };
+
+
+  const GitHubLogIn = () => {
+    signInWithPopup(auth, gitHubProvider)
+      .then(data => {
+        const user = data.user;
+        console.log(user);
+      })
+      .catch(err => console.error(err));
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={GoogleLogIn}>Log In with Google</button>
+      <button onClick={GitHubLogIn}>Log In with GitHub</button>
     </div>
   );
 }
