@@ -1,38 +1,15 @@
+import { RouterProvider } from 'react-router-dom';
 import './App.css';
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
-import app from './firebase.config';
+import router from './Router/Route';
 
-const googleProvider = new GoogleAuthProvider();
-const gitHubProvider = new GoogleAuthProvider();
 
-const auth = getAuth(app);
 
 
 function App() {
 
-  const GoogleLogIn = () => {
-    signInWithPopup(auth, googleProvider)
-      .then(data => {
-        const user = data.user;
-        console.log(user);
-      })
-      .catch(err => console.error(err));
-  };
-
-
-  const GitHubLogIn = () => {
-    signInWithPopup(auth, gitHubProvider)
-      .then(data => {
-        const user = data.user;
-        console.log(user);
-      })
-      .catch(err => console.error(err));
-  };
-
   return (
     <div className="App">
-      <button onClick={GoogleLogIn}>Log In with Google</button>
-      <button onClick={GitHubLogIn}>Log In with GitHub</button>
+      <RouterProvider router={router}></RouterProvider>
     </div>
   );
 }
